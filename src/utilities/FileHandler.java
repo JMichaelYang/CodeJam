@@ -8,17 +8,11 @@ import java.io.*;
 public class FileHandler
 {
     /**
-     * The locations where the files for input and output can be found
-     */
-    protected static final String filePathInput = "C:\\Users\\Jaewon\\Documents\\CodeJam\\Input\\";
-    protected static final String filePathOutput = "C:\\Users\\Jaewon\\Documents\\CodeJam\\Output\\";
-
-    /**
      * Read the inputs into an instance of the {@link Input} class
      * @param fileName the name of the input file
      * @return a new utilities.Input object containing the contents of the {@link Input} file
      */
-    public static Input ReadInputFile(String fileName)
+    public static Input ReadInputFile(String filePathInput, String fileName)
     {
         // The number of inputs that the input file has
         int numInputs = 0;
@@ -28,7 +22,7 @@ public class FileHandler
         try
         {
             // A new path that points to the file that we are trying to read
-            File inputLocation = new File(FileHandler.filePathInput + fileName + ".in");
+            File inputLocation = new File(filePathInput + fileName + ".in");
 
             // New FileReader and BufferedReader objects to read the file
             FileReader fileReader = new FileReader(inputLocation);
@@ -58,12 +52,12 @@ public class FileHandler
         return new Input(numInputs, inputs);
     }
 
-    public static void WriteOutputFile(String fileName, Output output)
+    public static void WriteOutputFile(String filePathOutput, String fileName, Output output)
     {
         try
         {
             // A new path that points to the file that we are trying to read
-            File outputLocation = new File(FileHandler.filePathOutput + fileName + ".out");
+            File outputLocation = new File(filePathOutput + fileName + ".out");
 
             // FileWriter and BufferedWriter objects to write the new file
             FileWriter fileWriter = new FileWriter(outputLocation);

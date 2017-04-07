@@ -1,32 +1,15 @@
 package practice;
 
-import utilities.FileHandler;
-import utilities.Input;
-import utilities.Output;
+import utilities.ChallengeBase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CountingSheep
+public class CountingSheep extends ChallengeBase
 {
-    private static final String name = "CountingSheep";
-
-    public static void main(String[] args)
-    {
-        Input input = FileHandler.ReadInputFile(CountingSheep.name);
-        System.out.println("Processing inputs...");
-        Output output = CountingSheep.Execute(input);
-        System.out.println("Finished processing inputs, writing outputs...");
-        FileHandler.WriteOutputFile(CountingSheep.name, output);
-    }
-
-    /**
-     * Method in which to insert all code that completes the challenges
-     * @param input the input string
-     * @return The modified output string
-     */
-    private static String manipulate(String input)
+    @Override
+    public String Manipulate(String input)
     {
         String output = input;
 
@@ -68,20 +51,5 @@ public class CountingSheep
         }
 
         return output;
-    }
-
-    private static Output Execute(Input input)
-    {
-        String[] outputs = input.GetInputs().clone();
-
-        for(int i = 0; i < outputs.length; i++)
-        {
-            System.out.println("Finding case string " + (i + 1) + " of " + outputs.length);
-            String caseString = CountingSheep.manipulate(outputs[i]);
-            System.out.println("Case string " + (i + 1) + " of " + outputs.length + ": " + caseString);
-            outputs[i] = caseString;
-        }
-
-        return new Output(outputs);
     }
 }
