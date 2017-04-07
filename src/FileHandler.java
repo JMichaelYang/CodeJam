@@ -1,9 +1,5 @@
 import java.io.*;
 import java.nio.file.*;
-import java.util.ArrayList;
-
-import static java.lang.System.in;
-import static javafx.scene.input.KeyCode.F;
 
 /**
  * A class that handles reading and writing of files for Google CodeJam
@@ -28,14 +24,14 @@ public class FileHandler
         // The different inputs in the input file
         String[] inputs = new String[0];
 
-        // A new path that points to the file that we are trying to read
-        Path inputLocation = Paths.get(FileHandler.filePathInput + fileName + ".txt");
-
         try
         {
-            // New InputStream and BufferedReader objects to read the file
-            InputStream inputStream = Files.newInputStream(inputLocation);
-            BufferedReader inputReader = new BufferedReader(new InputStreamReader(inputStream));
+            // A new path that points to the file that we are trying to read
+            File inputLocation = new File(FileHandler.filePathInput + fileName + ".in");
+
+            // New FileReader and BufferedReader objects to read the file
+            FileReader fileReader = new FileReader(inputLocation);
+            BufferedReader inputReader = new BufferedReader(fileReader);
 
             // Get the number of inputs from the first line of the file
             String firstLine = inputReader.readLine();
@@ -47,12 +43,40 @@ public class FileHandler
             {
                 inputs[i] = inputReader.readLine();
             }
+
+            // Close the file
+            inputReader.close();
         }
         catch (IOException e)
         {
-            System.err.println(e);
+            e.printStackTrace();
         }
 
         return new Input(numInputs, inputs);
+    }
+
+    public static void WriteOutputFile(String fileName, Output output)
+    {
+        try
+        {
+            // A new path that points to the file that we are trying to read
+            File outputLocation = new File(FileHandler.filePathOutput + fileName + ".out");
+
+            // FileWriter and BufferedWriter objects to write the new file
+            FileWriter fileWriter = new FileWriter(outputLocation);
+            BufferedWriter outputWriter = new BufferedWriter(fileWriter);
+
+            // Get the output strings to write
+            String[] outputs = output.GetOutputs();
+            // Write all of the outputs with Case #N appended to the front
+            for (int i = 1; i <= outputs.length; i++) { fileWriter.write("Case #" + i + ": " + outputs[i]); }
+
+            // Close the new file
+            outputWriter.close();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
