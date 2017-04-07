@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CountingSheep
 {
-    private static final String name = "CountingSheepLarge";
+    private static final String name = "CountingSheep";
 
     public static void main(String[] args)
     {
@@ -21,6 +21,55 @@ public class CountingSheep
         FileHandler.WriteOutputFile(CountingSheep.name, output);
     }
 
+    /**
+     * Method in which to insert all code that completes the challenges
+     * @param input the input string
+     * @return The modified output string
+     */
+    private static String manipulate(String input)
+    {
+        String output = input;
+
+        int number = Integer.parseInt(output);
+        int origNumber = number;
+        if(number == 0) { output = "INSOMNIA"; }
+        else
+        {
+            ArrayList<Integer> seenDigits = new ArrayList<Integer>();
+            Integer[] digits = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            List<Integer> list = Arrays.asList(digits);
+
+            ArrayList<Integer> numberDigits = new ArrayList<>(0);
+
+            do
+            {
+                Integer digitNumber = number;
+
+                while(digitNumber > 9)
+                {
+                    numberDigits.add(digitNumber % 10);
+                    digitNumber /= 10;
+                }
+                numberDigits.add(digitNumber);
+
+                for(Integer digit : numberDigits)
+                {
+                    if(!seenDigits.contains(digit))
+                    {
+                        seenDigits.add(digit);
+                    }
+                }
+
+                number += origNumber;
+                numberDigits.clear();
+            } while(!seenDigits.containsAll(list));
+
+            output = String.valueOf(number - origNumber);
+        }
+
+        return output;
+    }
+
     private static Output Execute(Input input)
     {
         String[] outputs = input.GetInputs().clone();
@@ -28,50 +77,7 @@ public class CountingSheep
         for(int i = 0; i < outputs.length; i++)
         {
             System.out.println("Finding case string " + (i + 1) + " of " + outputs.length);
-            String caseString = outputs[i];
-
-            // PLACE CODE THAT MANIPULATES INPUTS HERE
-            // caseString SHOULD END UP WITH THE DESIRED STRING VALUE
-
-            int number = Integer.parseInt(caseString);
-            int origNumber = number;
-            if(number == 0) { caseString = "INSOMNIA"; }
-            else
-            {
-                ArrayList<Integer> seenDigits = new ArrayList<Integer>();
-                Integer[] digits = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-                List<Integer> list = Arrays.asList(digits);
-
-                ArrayList<Integer> numberDigits = new ArrayList<>(0);
-
-                do
-                {
-                    Integer digitNumber = number;
-
-                    while(digitNumber > 9)
-                    {
-                        numberDigits.add(digitNumber % 10);
-                        digitNumber /= 10;
-                    }
-                    numberDigits.add(digitNumber);
-
-                    for(Integer digit : numberDigits)
-                    {
-                        if(!seenDigits.contains(digit))
-                        {
-                            seenDigits.add(digit);
-                        }
-                    }
-
-                    number += origNumber;
-                    numberDigits.clear();
-                } while(!seenDigits.containsAll(list));
-
-                caseString = String.valueOf(number - origNumber);
-            }
-
-            // END EXECUTION
-
+            String caseString = CountingSheep.manipulate(outputs[i]);
             System.out.println("Case string " + (i + 1) + " of " + outputs.length + ": " + caseString);
             outputs[i] = caseString;
         }

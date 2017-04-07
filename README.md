@@ -12,7 +12,7 @@ Framework code for the 2017 Google CodeJam
 
 4. Ensure that the file names in the Read and Write functions match the input file name and the intended output file name.
 
-5. Write the code to manipulate the inputs in the Execute() function of the new class.
+5. Write the code to manipulate the inputs in the manipulate() function of the new class.
 
 6. Run the main() function of the new class.
 

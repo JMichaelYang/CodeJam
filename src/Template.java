@@ -10,27 +10,31 @@ public class Template
     {
         Input input = FileHandler.ReadInputFile(Template.name);
         System.out.println("Processing inputs...");
-        Output output = Template.Execute(input);
+        Output output = Template.execute(input);
         System.out.println("Finished processing inputs, writing outputs...");
         FileHandler.WriteOutputFile(Template.name, output);
     }
 
-    private static Output Execute(Input input)
+    /**
+     * Method in which to insert all code that completes the challenges
+     * @param input the input string
+     * @return The modified output string
+     */
+    private static String manipulate(String input)
+    {
+        String output = input;
+
+        return output;
+    }
+
+    private static Output execute(Input input)
     {
         String[] outputs = input.GetInputs().clone();
 
         for(int i = 0; i < outputs.length; i++)
         {
             System.out.println("Finding case string " + (i + 1) + " of " + outputs.length);
-            String caseString = outputs[i];
-
-            // PLACE CODE THAT MANIPULATES INPUTS HERE
-            // caseString SHOULD END UP WITH THE DESIRED STRING VALUE
-
-
-
-            // END EXECUTION
-
+            String caseString = Template.manipulate(outputs[i]);
             System.out.println("Case string " + (i + 1) + " of " + outputs.length + ": " + caseString);
             outputs[i] = caseString;
         }
