@@ -1,5 +1,6 @@
+package utilities;
+
 import java.io.*;
-import java.nio.file.*;
 
 /**
  * A class that handles reading and writing of files for Google CodeJam
@@ -15,7 +16,7 @@ public class FileHandler
     /**
      * Read the inputs into an instance of the {@link Input} class
      * @param fileName the name of the input file
-     * @return a new Input object containing the contents of the {@link Input} file
+     * @return a new utilities.Input object containing the contents of the {@link Input} file
      */
     public static Input ReadInputFile(String fileName)
     {
@@ -69,7 +70,10 @@ public class FileHandler
             // Get the output strings to write
             String[] outputs = output.GetOutputs();
             // Write all of the outputs with Case #N appended to the front
-            for (int i = 1; i <= outputs.length; i++) { fileWriter.write("Case #" + i + ": " + outputs[i]); }
+            for (int i = 1; i <= outputs.length; i++)
+            {
+                fileWriter.write("Case #" + i + ": " + outputs[i - 1] + System.getProperty("line.separator"));
+            }
 
             // Close the new file
             outputWriter.close();

@@ -1,3 +1,5 @@
+package utilities;
+
 public class Output
 {
     private String[] outputs;
@@ -6,5 +8,10 @@ public class Output
     public Output(String[] outputs)
     {
         this.outputs = outputs;
+    }
+
+    public Output()
+    {
+        this.outputs = new String[0];
     }
 }

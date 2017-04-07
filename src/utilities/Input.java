@@ -1,3 +1,5 @@
+package utilities;
+
 public class Input
 {
     private int numInputs;
@@ -10,5 +12,11 @@ public class Input
     {
         this.numInputs = numInputs;
         this.inputs = inputs;
+    }
+
+    public Input()
+    {
+        this.numInputs = 0;
+        this.inputs = new String[0];
     }
 }
