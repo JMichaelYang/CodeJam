@@ -1,4 +1,4 @@
-import practice.CountingSheep;
+import practice.RevengeOfThePancakes;
 import utilities.ChallengeBase;
 import utilities.FileHandler;
 import utilities.Input;
@@ -11,12 +11,12 @@ public class MainExec
     private static final String outputPath = "C:\\Users\\Jaewon\\Documents\\CodeJam\\Output\\";
 
     //TODO: Change this name to match the current challenge's input file name
-    private static final String name = "CountingSheep";
+    private static final String name = "RevengeOfThePancakes";
 
     public static void main(String[] args)
     {
         //TODO: Change this line to match the current challenge
-        ChallengeBase challenge = new CountingSheep();
+        ChallengeBase challenge = new RevengeOfThePancakes();
 
         Input input = FileHandler.ReadInputFile(inputPath, MainExec.name);
         System.out.println("Processing inputs...");
