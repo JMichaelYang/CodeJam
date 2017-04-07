@@ -47,6 +47,8 @@ public class FileHandler
 
             // Close the file
             inputReader.close();
+
+            System.out.println("Read file from " + inputLocation.getAbsolutePath());
         }
         catch (IOException e)
         {
@@ -77,6 +79,8 @@ public class FileHandler
 
             // Close the new file
             outputWriter.close();
+
+            System.out.println("Wrote file to " + outputLocation.getAbsolutePath());
         }
         catch(IOException e)
         {

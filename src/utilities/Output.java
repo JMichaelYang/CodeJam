@@ -9,9 +9,4 @@ public class Output
     {
         this.outputs = outputs;
     }
-
-    public Output()
-    {
-        this.outputs = new String[0];
-    }
 }
