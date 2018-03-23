@@ -17,6 +17,7 @@ public class MainExec {
     }
 
     String name = null;
+    String fileName = null;
 
     for (int i = 0; i < args.length; i += 2) {
       String flag = args[i];
@@ -24,6 +25,8 @@ public class MainExec {
       switch (flag) {
         case "-n":
           name = args[i + 1];
+        case "-fn":
+          fileName = args[i + 1];
       }
     }
 
@@ -31,12 +34,15 @@ public class MainExec {
       throw new IllegalArgumentException("The challenge name is required, specify the name with: "
           + "-n 'name'");
     }
+    if (fileName == null) {
+      fileName = name;
+    }
 
     IChallenge challenge = ChallengeFactory.getChallenge(name);
 
-    Input input = FileHandler.readInputFile(inputPath, name);
+    Input input = FileHandler.readInputFile(inputPath, fileName);
     Output output = MainExec.execute(challenge, input);
-    FileHandler.writeOutputFile(outputPath, name, output);
+    FileHandler.writeOutputFile(outputPath, fileName, output);
   }
 
   private static Output execute(IChallenge challenge, Input input) {

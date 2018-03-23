@@ -1,5 +1,6 @@
 package utilities;
 
+import practice.AlphabetCake;
 import practice.CountingSheep;
 import practice.RevengeOfThePancakes;
 
@@ -17,6 +18,8 @@ public class ChallengeFactory {
         return new CountingSheep();
       case "RevengeOfThePancakes":
         return new RevengeOfThePancakes();
+      case "AlphabetCake":
+        return new AlphabetCake();
       default:
         throw new IllegalArgumentException("No handler for the given challenge.");
     }
