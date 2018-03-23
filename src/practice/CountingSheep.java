@@ -1,15 +1,15 @@
 package practice;
 
-import utilities.ChallengeBase;
+import utilities.IChallenge;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CountingSheep extends ChallengeBase
+public class CountingSheep implements IChallenge
 {
     @Override
-    public String Manipulate(String input)
+    public String apply(String input)
     {
         String output = input;
 

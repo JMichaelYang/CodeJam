@@ -1,42 +1,57 @@
-import practice.RevengeOfThePancakes;
-import utilities.ChallengeBase;
+import utilities.ChallengeFactory;
 import utilities.FileHandler;
+import utilities.IChallenge;
 import utilities.Input;
 import utilities.Output;
 
-public class MainExec
-{
-    //TODO: Change these file paths to match the local system
-    private static final String inputPath = "C:\\Users\\Jaewon\\Documents\\CodeJam\\Input\\";
-    private static final String outputPath = "C:\\Users\\Jaewon\\Documents\\CodeJam\\Output\\";
+public class MainExec {
 
-    //TODO: Change this name to match the current challenge's input file name
-    private static final String name = "RevengeOfThePancakes";
+  //TODO: Change these file paths to match the local system
+  private static final String inputPath = "C:\\Users\\Jaewon Yang\\Documents\\CodeJam\\Input\\";
+  private static final String outputPath = "C:\\Users\\Jaewon Yang\\Documents\\CodeJam\\Output\\";
 
-    public static void main(String[] args)
-    {
-        //TODO: Change this line to match the current challenge
-        ChallengeBase challenge = new RevengeOfThePancakes();
-
-        Input input = FileHandler.ReadInputFile(inputPath, MainExec.name);
-        System.out.println("Processing inputs...");
-        Output output = MainExec.execute(challenge, input);
-        System.out.println("Finished processing inputs, writing outputs...");
-        FileHandler.WriteOutputFile(outputPath, MainExec.name, output);
+  public static void main(String[] args) {
+    if (args.length % 2 != 0) {
+      throw new IllegalArgumentException("Given arguments are improperly formatted, each flag must"
+          + "have a value.");
     }
 
-    private static Output execute(ChallengeBase challenge, Input input)
-    {
-        String[] outputs = input.GetInputs().clone();
+    String name = null;
 
-        for(int i = 0; i < outputs.length; i++)
-        {
-            System.out.println("Finding case string " + (i + 1) + " of " + outputs.length);
-            String caseString = challenge.Manipulate(outputs[i]);
-            System.out.println("Case string " + (i + 1) + " of " + outputs.length + ": " + caseString);
-            outputs[i] = caseString;
-        }
+    for (int i = 0; i < args.length; i += 2) {
+      String flag = args[i];
 
-        return new Output(outputs);
+      switch (flag) {
+        case "-n":
+          name = args[i + 1];
+      }
     }
+
+    if (name == null) {
+      throw new IllegalArgumentException("The challenge name is required, specify the name with: "
+          + "-n 'name'");
+    }
+
+    IChallenge challenge = ChallengeFactory.getChallenge(name);
+
+    Input input = FileHandler.readInputFile(inputPath, name);
+    Output output = MainExec.execute(challenge, input);
+    FileHandler.writeOutputFile(outputPath, name, output);
+  }
+
+  private static Output execute(IChallenge challenge, Input input) {
+    String[] inputs = input.getInputs();
+    String[] outputs = new String[inputs.length];
+
+    for (int i = 0; i < inputs.length; i++) {
+      try {
+        String output = challenge.apply(inputs[i]);
+        outputs[i] = output;
+      } catch (Exception e) {
+        throw new IllegalStateException("Failed to process input " + i + ": " + e.getMessage());
+      }
+    }
+
+    return new Output(outputs);
+  }
 }

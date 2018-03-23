@@ -1,11 +1,11 @@
 package practice;
 
-import utilities.ChallengeBase;
+import utilities.IChallenge;
 
-public class RevengeOfThePancakes extends ChallengeBase
+public class RevengeOfThePancakes implements IChallenge
 {
     @Override
-    public String Manipulate(String input)
+    public String apply(String input)
     {
         Integer numFlips = 0;
         Boolean isCorrect = false;
