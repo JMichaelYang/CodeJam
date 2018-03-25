@@ -9,8 +9,8 @@ public interface IChallenge {
   /**
    * Method in which to insert all code that completes the challenges.
    *
-   * @param input the input string
+   * @param input the input strings
    * @return The modified output string.
    */
-  String apply(String input);
+  String apply(String[] input);
 }

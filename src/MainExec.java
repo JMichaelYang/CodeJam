@@ -1,6 +1,7 @@
-import utilities.ChallengeFactory;
 import utilities.FileHandler;
+import utilities.HelperFactory;
 import utilities.IChallenge;
+import utilities.IInputHandler;
 import utilities.Input;
 import utilities.Output;
 
@@ -38,15 +39,17 @@ public class MainExec {
       fileName = name;
     }
 
-    IChallenge challenge = ChallengeFactory.getChallenge(name);
+    IChallenge challenge = HelperFactory.getChallenge(name);
+    IInputHandler handler = HelperFactory.getHandler(name);
+    FileHandler fileHandler = new FileHandler(handler, inputPath, outputPath, fileName);
 
-    Input input = FileHandler.readInputFile(inputPath, fileName);
+    Input input = fileHandler.readInputFile();
     Output output = MainExec.execute(challenge, input);
-    FileHandler.writeOutputFile(outputPath, fileName, output);
+    fileHandler.writeOutputFile(output);
   }
 
   private static Output execute(IChallenge challenge, Input input) {
-    String[] inputs = input.getInputs();
+    String[][] inputs = input.getInputs();
     String[] outputs = new String[inputs.length];
 
     for (int i = 0; i < inputs.length; i++) {

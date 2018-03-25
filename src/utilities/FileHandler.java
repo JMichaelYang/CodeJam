@@ -12,13 +12,24 @@ import java.io.IOException;
  */
 public class FileHandler {
 
+  private final IInputHandler handler;
+  private final String inputPath;
+  private final String outputPath;
+  private final String fileName;
+
+  public FileHandler(IInputHandler handler, String inputPath, String outputPath, String fileName) {
+    this.handler = handler;
+    this.inputPath = inputPath;
+    this.outputPath = outputPath;
+    this.fileName = fileName;
+  }
+
   /**
    * Read the inputs from a file into an instance of the {@link Input} class.
    *
-   * @param fileName the name of the input file
    * @return a new {@link Input} object containing the contents of the input file.
    */
-  public static Input readInputFile(String filePathInput, String fileName) {
+  public Input readInputFile() {
     // The number of inputs that the input file has
     int numInputs;
     // The different inputs in the input file
@@ -26,7 +37,7 @@ public class FileHandler {
 
     try {
       // A new path that points to the file that we are trying to read
-      File inputLocation = new File(filePathInput + fileName + ".in");
+      File inputLocation = new File(inputPath + fileName + ".in");
 
       // New FileReader and BufferedReader objects to read the file
       FileReader fileReader = new FileReader(inputLocation);
@@ -48,20 +59,18 @@ public class FileHandler {
       e.printStackTrace();
     }
 
-    return new Input(inputs);
+    return new Input(handler.translate(inputs));
   }
 
   /**
    * Writes the outputs to the correct file.
    *
-   * @param filePathOutput the output file path to write to
-   * @param fileName the name of the file to write to
    * @param output the outputs that should be written
    */
-  public static void writeOutputFile(String filePathOutput, String fileName, Output output) {
+  public void writeOutputFile(Output output) {
     try {
       // A new path that points to the file that we are trying to read
-      File outputLocation = new File(filePathOutput + fileName + ".out");
+      File outputLocation = new File(outputPath + fileName + ".out");
 
       // FileWriter and BufferedWriter objects to write the new file
       FileWriter fileWriter = new FileWriter(outputLocation);
